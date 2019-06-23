@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">RadioAktywne</string>
+    <string name="playback_channel_name">Playback</string>
+    <string name="rds">Trwa łączenie...</string>
+    <string name="now_playing">Teraz gramy: </string>
+    <string name="radio_schedule">Ramówka</string>
+    <string name="title_activity_schedule">ScheduleActivity</string>
+    <string name="monday"><b>Poniedziałek</b></string>
+</resources>
