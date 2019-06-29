@@ -133,4 +133,16 @@ public class MainActivity extends AppCompatActivity {
 //        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
+
+    public void playClicked(View view) {
+        if (mBound) {
+            mService.play();
+        }
+    }
+
+    public void pauseClicked(View view) {
+        if (mBound) {
+            mService.pausePlayer();
+        }
+    }
 }

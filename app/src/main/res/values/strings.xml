@@ -6,4 +6,6 @@
     <string name="radio_schedule">Ramówka</string>
     <string name="title_activity_schedule">ScheduleActivity</string>
     <string name="monday"><b>Poniedziałek</b></string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
 </resources>

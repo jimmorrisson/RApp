@@ -79,12 +79,19 @@ public class AudioPlayerService extends Service {
         }
     }
 
-    private void pausePlayer() {
+    public void pausePlayer() {
         if (player == null) {
             return;
         }
         player.setPlayWhenReady(false);
         player.getPlaybackState();
+    }
+
+    public void play() {
+        if (player == null) {
+            return;
+        }
+        player.setPlayWhenReady(true);
     }
 
 
