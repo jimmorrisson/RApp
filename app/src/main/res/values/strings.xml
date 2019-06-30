@@ -6,6 +6,12 @@
     <string name="radio_schedule">Ramówka</string>
     <string name="title_activity_schedule">ScheduleActivity</string>
     <string name="monday"><b>Poniedziałek</b></string>
+    <string name="tuesday"><b>Wtorek</b></string>
+    <string name="wednesday"><b>Środa</b></string>
+    <string name="thursday"><b>Czwartek</b></string>
+    <string name="friday"><b>Piątek</b></string>
+    <string name="saturday"><b>Sobota</b></string>
+    <string name="sunday"><b>Niedziela</b></string>
     <string name="play">Play</string>
     <string name="pause">Pause</string>
 </resources>

@@ -5,21 +5,42 @@
     android:layout_height="match_parent"
     tools:context=".ScheduleActivity">
 
-    <TextView
-        android:id="@+id/textViewMonday"
+    <LinearLayout
+        android:id="@+id/schedule_nav_bar"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:background="@color/RAGrayColor"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:text="@string/monday"/>
+        android:background="@color/RAGrayColor">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="16.25"
+            android:onClick="btnLeftClicked"/>
+
+        <TextView
+            android:id="@+id/textViewDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@color/RAGrayColor"
+            android:textSize="20sp"
+            android:layout_weight="66.6"
+            android:textColor="@color/white"
+            android:text="@string/monday"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="16.25"
+            android:onClick="btnRightClicked"/>
+    </LinearLayout>
+
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewMonday"
+        android:layout_below="@+id/schedule_nav_bar"
         android:layout_centerHorizontal="true"></ListView>
 
 

@@ -43,4 +43,9 @@ public class ProgramListAdapter extends ArrayAdapter<Program> {
 
         return convertView;
     }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }
 }

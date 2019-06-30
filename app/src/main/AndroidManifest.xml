@@ -12,7 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProgramActivity"></activity>
+        <service
+            android:name=".ScheduleDownloadService"
+            android:exported="false"></service>
+
+        <activity android:name=".ProgramActivity" />
         <activity
             android:name=".ScheduleActivity"
             android:label="@string/title_activity_schedule"
@@ -23,7 +27,8 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
