@@ -3,7 +3,9 @@ package com.example.radioaktywne;
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Bundle;
 import android.os.IBinder;
+import android.os.ResultReceiver;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -26,6 +28,7 @@ public class ScheduleDownloadService extends IntentService {
     private String programUrl = "http://34.244.107.237:8080/";
 
     private final IBinder mBinder = new ScheduleDownloadBinder();
+    public static final String EXTRA_OUT_TXT = "hashMap";
     public ScheduleDownloadService() {
         super("ScheduleDownloadService");
     }
@@ -38,39 +41,44 @@ public class ScheduleDownloadService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        try {
-            URL url = new URL(programUrl);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            JSONObject mainObj = new JSONObject(convertStreamToString(in));
-            if (mScheduleMap == null) {
-                mScheduleMap = new HashMap<>();
-            } else {
-                mScheduleMap.clear();
-            }
-            for (int i = 0; i < 7; i++) {
-                JSONArray jsonDay = mainObj.getJSONArray(Integer.toString(i));
-
-                ArrayList<Program> arrayList = new ArrayList<>();
-                for (int j = 0; j < jsonDay.length(); j++) {
-                    JSONObject jsonProgram = jsonDay.getJSONObject(j);
-                    String name = jsonProgram.getString("name");
-                    String hours = jsonProgram.getString("hours");
-
-                    arrayList.add(new Program(name, hours, ""));
+        if (intent != null) {
+            ResultReceiver receiver = (ResultReceiver) intent.getParcelableExtra(Intent.EXTRA_RESULT_RECEIVER);
+            Bundle bundle = new Bundle();
+            try {
+                URL url = new URL(programUrl);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                JSONObject mainObj = new JSONObject(convertStreamToString(in));
+                if (mScheduleMap == null) {
+                    mScheduleMap = new HashMap<>();
+                } else {
+                    mScheduleMap.clear();
                 }
+                for (int i = 0; i < 7; i++) {
+                    JSONArray jsonDay = mainObj.getJSONArray(Integer.toString(i));
 
-                mScheduleMap.put(Integer.toString(i), arrayList);
+                    ArrayList<Program> arrayList = new ArrayList<>();
+                    for (int j = 0; j < jsonDay.length(); j++) {
+                        JSONObject jsonProgram = jsonDay.getJSONObject(j);
+                        String name = jsonProgram.getString("name");
+                        String hours = jsonProgram.getString("hours");
+                        String host = jsonProgram.getString("speakers");
+                        arrayList.add(new Program(name, hours, host));
+                    }
+
+                    mScheduleMap.put(Integer.toString(i), arrayList);
+                }
+                bundle.putSerializable(EXTRA_OUT_TXT, mScheduleMap);
+                receiver.send(0, bundle);
+                Log.d("ScheduleDownloadService", mainObj.toString());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            Log.d("ScheduleDownloadService", mainObj.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
-
     }
 
     @Override

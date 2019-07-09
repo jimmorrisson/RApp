@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.ResultReceiver;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -17,9 +19,14 @@ import android.widget.TextView;
 
 import com.google.android.exoplayer2.util.Util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.example.radioaktywne.ScheduleDownloadService.EXTRA_OUT_TXT;
 
 public class MainActivity extends AppCompatActivity {
     private AudioPlayerService mService;
@@ -31,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     //UI
     private TextView rdsTextView;
     private ListView scheduleListView;
+    private ScheduleIntentServiceReceiver intentReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +47,7 @@ public class MainActivity extends AppCompatActivity {
         if (getSupportActionBar() != null)
             this.getSupportActionBar().hide();
 
-        ListView listView = (ListView) findViewById(R.id.scheduleListView);
-        final ArrayList<Program> arrayList = new ArrayList<>();
-        arrayList.add(new Program("Spokojna wooda", "22:00 - 23:00", "Jakub Pyszczak, Jan Klamka, Marcin Lisiecki"));
-        arrayList.add(new Program("Spokojna wooda", "22:00 - 23:00", "Jakub Pyszczak, Jan Klamka, Marcin Lisiecki"));
-        arrayList.add(new Program("Spokojna wooda", "22:00 - 23:00", "Jakub Pyszczak, Jan Klamka, Marcin Lisiecki"));
-
-        ProgramListAdapter adapter = new ProgramListAdapter(this, R.layout.adapter_view_layout, arrayList);
-        listView.setAdapter(adapter);
+        intentReceiver = new ScheduleIntentServiceReceiver(this, new Handler(Looper.getMainLooper()));
     }
 
     @Override
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
         rdsTextView = (TextView)findViewById(R.id.textView);
         scheduleListView = (ListView)findViewById(R.id.scheduleListView);
+
+        startService(new Intent(this, ScheduleDownloadService.class).putExtra(Intent.EXTRA_RESULT_RECEIVER, intentReceiver));
 
         Intent intent = new Intent(this, AudioPlayerService.class);
         Util.startForegroundService(this, intent);
@@ -130,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void btnClicked(View view) {
         Intent intent = new Intent(this, ScheduleActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
@@ -143,6 +145,33 @@ public class MainActivity extends AppCompatActivity {
     public void pauseClicked(View view) {
         if (mBound) {
             mService.pausePlayer();
+        }
+    }
+
+    public void onDownloadFinished(Serializable serializable) {
+        HashMap<String, ArrayList<Program>> scheduleMap = (HashMap<String, ArrayList<Program>>) serializable;
+
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        ArrayList<Program> arrayList = scheduleMap.get(DayToStringMapper.map(day));
+        ProgramListAdapter adapter = new ProgramListAdapter(this, R.layout.adapter_view_layout, arrayList);
+        scheduleListView.setAdapter(adapter);
+    }
+
+    class ScheduleIntentServiceReceiver extends ResultReceiver {
+        private final MainActivity mainActivity;
+
+        public ScheduleIntentServiceReceiver(MainActivity mainActivity, Handler handler) {
+            super(handler);
+            this.mainActivity = mainActivity;
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+            super.onReceiveResult(resultCode, resultData);
+            if (resultData.containsKey(EXTRA_OUT_TXT));
+                mainActivity.onDownloadFinished(resultData.getSerializable(EXTRA_OUT_TXT));
         }
     }
 }
