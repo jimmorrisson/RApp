@@ -15,7 +15,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="16.25"
-            android:onClick="btnLeftClicked"/>
+            android:onClick="btnLeftClicked"
+            android:rotation="-180"
+            android:background="@drawable/arrow_right"/>
 
         <TextView
             android:id="@+id/textViewDay"
@@ -32,7 +34,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="16.25"
-            android:onClick="btnRightClicked"/>
+            android:onClick="btnRightClicked"
+            android:background="@drawable/arrow_right"/>
     </LinearLayout>
 
 
