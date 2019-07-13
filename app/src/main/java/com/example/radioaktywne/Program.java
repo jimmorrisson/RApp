@@ -4,12 +4,14 @@ public class Program {
     private String name;
     private String dateTime;
     private String host;
+    private String description;
 
-    public Program(String name, String dateTime, String host)
+    public Program(String name, String dateTime, String host, String description)
     {
         this.name = name;
         this.dateTime = dateTime;
         this.host = host;
+        this.description = description;
     }
 
     public void setName(String name)
@@ -31,4 +33,6 @@ public class Program {
     {
         return host;
     }
+
+    public String getDescription() { return description; }
 }

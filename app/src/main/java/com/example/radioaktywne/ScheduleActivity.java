@@ -26,6 +26,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.example.radioaktywne.ProgramActivity.programDescription;
+import static com.example.radioaktywne.ProgramActivity.programName;
 import static com.example.radioaktywne.ScheduleDownloadService.EXTRA_OUT_TXT;
 
 public class ScheduleActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
@@ -56,8 +58,13 @@ public class ScheduleActivity extends AppCompatActivity implements GestureDetect
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getBaseContext(), ProgramActivity.class);
-                startActivity(intent);
+                Program program = (Program) parent.getItemAtPosition(position);
+                if (program != null) {
+                    Intent intent = new Intent(getBaseContext(), ProgramActivity.class);
+                    intent.putExtra(programName, program.getName());
+                    intent.putExtra(programDescription, program.getDescription() );
+                    startActivity(intent);
+                }
             }
         });
 

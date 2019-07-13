@@ -27,8 +27,9 @@ public class ProgramListAdapter extends ArrayAdapter<Program> {
         String name = getItem(position).getName();
         String dateTime = getItem(position).getDateTime();
         String host = getItem(position).getHost();
+        String description = getItem(position).getDescription();
 
-        Program program = new Program(name, dateTime, host);
+        Program program = new Program(name, dateTime, host, description);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);

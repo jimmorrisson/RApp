@@ -63,7 +63,8 @@ public class ScheduleDownloadService extends IntentService {
                         String name = jsonProgram.getString("name");
                         String hours = jsonProgram.getString("hours");
                         String host = jsonProgram.getString("speakers");
-                        arrayList.add(new Program(name, hours, host));
+                        String description = jsonProgram.getString("info");
+                        arrayList.add(new Program(name, hours, host, description));
                     }
 
                     mScheduleMap.put(Integer.toString(i), arrayList);
