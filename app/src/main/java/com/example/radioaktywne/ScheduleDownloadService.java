@@ -26,6 +26,7 @@ import java.util.HashMap;
 public class ScheduleDownloadService extends IntentService {
     private HashMap<String, ArrayList<Program>> mScheduleMap;
     private String programUrl = "http://listen.radioaktywne.pl:13337";
+    private int maxLenghtOfHost = 63;
 
     private final IBinder mBinder = new ScheduleDownloadBinder();
     public static final String EXTRA_OUT_TXT = "hashMap";
@@ -63,6 +64,8 @@ public class ScheduleDownloadService extends IntentService {
                         String name = jsonProgram.getString("name");
                         String hours = jsonProgram.getString("hours");
                         String host = jsonProgram.getString("speakers");
+                        if (host.length() >= maxLenghtOfHost)
+                            host = getAdjustedName(host);
                         String description = jsonProgram.getString("info");
                         arrayList.add(new Program(name, hours, host, description));
                     }
@@ -112,5 +115,20 @@ public class ScheduleDownloadService extends IntentService {
             }
         }
         return stringBuilder.toString();
+    }
+
+    private String getAdjustedName(String host) {
+        String value = "";
+
+        String[] arrHost = host.split(" ");
+        for (String h : arrHost) {
+            if (value.length() + h.length() > maxLenghtOfHost) {
+                value = value.concat("...");
+                break;
+            }
+            value = value.concat(h + " ");
+        }
+
+        return value;
     }
 }
