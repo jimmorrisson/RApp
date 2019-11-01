@@ -12,17 +12,19 @@ public class ProgramActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_program);
-        if (getSupportActionBar() != null)
-            this.getSupportActionBar().hide();
+//        if (getSupportActionBar() != null)
+//            this.getSupportActionBar().hide();
 
-        TextView textViewProgramName = (TextView) findViewById(R.id.program_name);
+//        TextView textViewProgramName = (TextView) findViewById(R.id.program_name);
         TextView textViewDescription = (TextView) findViewById(R.id.program_description);
 
-        String programName = getIntent().getStringExtra(this.programName);
-        String description = getIntent().getStringExtra(this.programDescription);
+        String programName = getIntent().getStringExtra(this.programName).concat("\n");
+        String description = getIntent().getStringExtra(this.programDescription).concat("\n");
 
-        if (programName != null && textViewProgramName != null) {
-            textViewProgramName.setText(programName);
+        if (programName != null /*&& textViewProgramName != null*/) {
+//            textViewProgramName.setText(programName);
+            if (getSupportActionBar() != null)
+                this.getSupportActionBar().setTitle(programName);
         }
 
         if (description != null && textViewDescription != null) {

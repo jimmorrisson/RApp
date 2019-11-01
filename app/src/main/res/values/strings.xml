@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RadioAktywne</string>
+    <string name="app_name">Radio Aktywne</string>
     <string name="playback_channel_name">Playback</string>
     <string name="rds">Trwa łączenie...</string>
     <string name="now_playing">Teraz gramy: </string>

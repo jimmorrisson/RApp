@@ -150,6 +150,7 @@ public class AudioPlayerService extends Service {
         });
         playerNotificationManager.setPlayer(player);
         playerNotificationManager.setUseNavigationActions(false);
+        playerNotificationManager.setUseChronometer(false);
 
         playerStarted = true;
         new Thread(new Runnable() {

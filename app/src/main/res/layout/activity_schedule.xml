@@ -11,31 +11,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/RAGrayColor">
-        <Button
+
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="16.25"
             android:onClick="btnLeftClicked"
             android:rotation="-180"
-            android:background="@drawable/arrow_right"/>
+            android:src="@drawable/arrow_right"/>
 
         <TextView
             android:id="@+id/textViewDay"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@color/RAGrayColor"
-            android:textSize="20sp"
+            android:layout_height="match_parent"
             android:layout_weight="66.6"
+            android:background="@color/RAGrayColor"
+            android:gravity="center"
+            android:text="@string/monday"
             android:textColor="@color/white"
-            android:text="@string/monday"/>
+            android:textSize="20sp" />
 
-        <Button
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="16.25"
             android:onClick="btnRightClicked"
-            android:background="@drawable/arrow_right"/>
+            android:src="@drawable/arrow_right"/>
     </LinearLayout>
 
 

@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 public class ScheduleDownloadService extends IntentService {
     private HashMap<String, ArrayList<Program>> mScheduleMap;
-    private String programUrl = "http://34.244.107.237:8080/";
+    private String programUrl = "http://listen.radioaktywne.pl:13337";
 
     private final IBinder mBinder = new ScheduleDownloadBinder();
     public static final String EXTRA_OUT_TXT = "hashMap";
