@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -73,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         rdsTextView = (TextView)findViewById(R.id.textView);
         scheduleListView = (ListView)findViewById(R.id.scheduleListView);
         btnPlay = (ImageButton)findViewById(R.id.btnPlay);
-        btnPause = (ImageButton)findViewById(R.id.btnPause);
+//        btnPause = (ImageButton)findViewById(R.id.btnPause);
         btnSchedule = (Button) findViewById(R.id.button);
 
         startService(new Intent(this, ScheduleDownloadService.class).putExtra(Intent.EXTRA_RESULT_RECEIVER, intentReceiver));
@@ -224,8 +226,9 @@ public class MainActivity extends AppCompatActivity {
         int day = calendar.get(Calendar.DAY_OF_WEEK);
 
         ArrayList<Program> arrayList = scheduleMap.get(DayToStringMapper.map(day));
-        ProgramListAdapter adapter = new ProgramListAdapter(this, R.layout.adapter_view_layout, arrayList);
-        scheduleListView.setAdapter(adapter);
+        ProgramListAdapterUpdated adapter = new ProgramListAdapterUpdated(this, R.layout.adapter_view_layout_updated, arrayList);
+        if (scheduleListView != null)
+            scheduleListView.setAdapter(adapter);
     }
 
     class ScheduleIntentServiceReceiver extends ResultReceiver {

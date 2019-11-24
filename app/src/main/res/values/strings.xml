@@ -3,7 +3,7 @@
     <string name="playback_channel_name">Playback</string>
     <string name="rds">Trwa łączenie...</string>
     <string name="now_playing">Teraz gramy: </string>
-    <string name="radio_schedule">Ramówka</string>
+    <string name="radio_schedule">Pełna ramówka</string>
     <string name="title_activity_schedule">ScheduleActivity</string>
     <string name="monday"><b>Poniedziałek</b></string>
     <string name="tuesday"><b>Wtorek</b></string>
@@ -14,4 +14,5 @@
     <string name="sunday"><b>Niedziela</b></string>
     <string name="play">Play</string>
     <string name="pause">Pause</string>
+    <string name="next">Następnie:</string>
 </resources>

@@ -91,7 +91,11 @@ public class AudioPlayerService extends Service {
         if (player == null) {
             return;
         }
-        player.setPlayWhenReady(true);
+        if (player.getPlayWhenReady()) {
+            player.setPlayWhenReady(false);
+        } else {
+            player.setPlayWhenReady(true);
+        }
     }
 
 
@@ -106,7 +110,7 @@ public class AudioPlayerService extends Service {
         MediaSource mediaSource = new ExtractorMediaSource.Factory(dataSourceFactory)
                 .createMediaSource(playerUri);
         player.prepare(mediaSource);
-        player.setPlayWhenReady(true);
+        player.setPlayWhenReady(false);
 
         playerNotificationManager = PlayerNotificationManager.createWithNotificationChannel(
                 context, PLAYBACK_CHANNEL_ID, R.string.playback_channel_name, PLAYBACK_NOTIFICATION_ID,
@@ -219,6 +223,7 @@ public class AudioPlayerService extends Service {
 
     @Override
     public void onDestroy() {
+        player.setPlayWhenReady(false);
         playerNotificationManager.setPlayer(null);
         player.release();
         player = null;
