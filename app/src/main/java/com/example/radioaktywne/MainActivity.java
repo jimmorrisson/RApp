@@ -138,6 +138,9 @@ public class MainActivity extends AppCompatActivity {
                         if (mBound) {
                             String RDS = Html.fromHtml(mService.getRDS()).toString();
                             rdsTextView.setText(RDS);
+//                            rdsTextView.measure(0, 0);
+//                            int rdsTxtHeight = rdsTextView.getMeasuredHeight();
+//                            rdsTextView.getLayoutParams().height = rdsTxtHeight;
                         }
                     }
                 });

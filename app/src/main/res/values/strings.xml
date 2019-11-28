@@ -15,4 +15,5 @@
     <string name="play">Play</string>
     <string name="pause">Pause</string>
     <string name="next">Następnie:</string>
+    <string name="hosts"><b>Prowadzący:</b></string>
 </resources>

@@ -8,27 +8,40 @@ import android.widget.TextView;
 public class ProgramActivity extends AppCompatActivity {
     public static final String programDescription = "DESCRIPTION";
     public static final String programName = "NAME";
+    public static final String programDatetime = "DATETIME";
+    public static final String programHost = "HOST";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_program);
-//        if (getSupportActionBar() != null)
-//            this.getSupportActionBar().hide();
 
-//        TextView textViewProgramName = (TextView) findViewById(R.id.program_name);
-        TextView textViewDescription = (TextView) findViewById(R.id.program_description);
+        if (getSupportActionBar() != null)
+            this.getSupportActionBar().hide();
 
-        String programName = getIntent().getStringExtra(this.programName).concat("\n");
-        String description = getIntent().getStringExtra(this.programDescription).concat("\n");
+        TextView tvProgramDescription = (TextView) findViewById(R.id.tvProgramDescription);
+        TextView tvProgramName = (TextView) findViewById(R.id.tvProgramName);
+        TextView tvProgramDatetime = (TextView) findViewById(R.id.tvProgramDateTime);
+        TextView tvProgramHost = (TextView) findViewById(R.id.tvProgramHosts);
 
-        if (programName != null /*&& textViewProgramName != null*/) {
-//            textViewProgramName.setText(programName);
-            if (getSupportActionBar() != null)
-                this.getSupportActionBar().setTitle(programName);
+        String name = getIntent().getStringExtra(this.programName);
+        String datetime = getIntent().getStringExtra(this.programDatetime);
+        String description = getIntent().getStringExtra(this.programDescription);
+        String host = getIntent().getStringExtra(this.programHost);
+
+        if (name != null && tvProgramName != null) {
+            tvProgramName.setText(name);
         }
 
-        if (description != null && textViewDescription != null) {
-            textViewDescription.setText(description);
+        if (datetime != null && tvProgramDatetime != null) {
+            tvProgramDatetime.setText(datetime);
+        }
+
+        if (description != null && tvProgramDescription != null) {
+            tvProgramDescription.setText(description);
+        }
+
+        if (host != null && tvProgramHost != null) {
+            tvProgramHost.setText(host);
         }
     }
 

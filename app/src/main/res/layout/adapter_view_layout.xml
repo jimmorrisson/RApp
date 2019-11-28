@@ -10,6 +10,7 @@
         android:gravity="center"
         android:text="TextView1"
         android:textColor="@color/white"
+        android:fontFamily="@font/montserrat"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:id="@+id/textView1"
@@ -25,6 +26,7 @@
             android:gravity="center"
             android:text="TextView2"
             android:textColor="@color/white"
+            android:fontFamily="@font/montserrat"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/textView2"/>
@@ -35,6 +37,7 @@
             android:layout_height="40dp"
             android:text="TextView3"
             android:textColor="@color/white"
+            android:fontFamily="@font/montserrat"
             android:id="@+id/textView3"
             android:layout_below="@+id/textView3"/>
     </LinearLayout>

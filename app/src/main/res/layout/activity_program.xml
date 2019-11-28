@@ -1,29 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/RAGrayColor"
     tools:context=".ProgramActivity">
 
     <!--<TextView-->
-        <!--android:id="@+id/program_name"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center"-->
-        <!--android:text="AUDYCJA"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:textSize="18sp"-->
-        <!--android:textStyle="bold" />-->
+    <!--android:id="@+id/program_name"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:gravity="center"-->
+    <!--android:text="AUDYCJA"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="18sp"-->
+    <!--android:textStyle="bold" />-->
 
-    <me.biubiubiu.justifytext.library.JustifyTextView
-        android:id="@+id/program_description"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+    <TextView
+        android:id="@+id/tvProgramName"
+        android:layout_width="234dp"
+        android:layout_height="29dp"
+        android:gravity="center"
+        android:text="Satistaction"
         android:textColor="@color/white"
-        android:text="Tecxtview\n" />
+        android:fontFamily="@font/montserrat"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toTopOf="@+id/glTop" />
 
-</RelativeLayout>
+    <android.support.constraint.Guideline
+        android:id="@+id/glRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/glLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/glBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.96" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/glTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <TextView
+        android:id="@+id/tvProgramDateTime"
+        android:layout_width="234dp"
+        android:layout_height="34dp"
+        android:gravity="center"
+        android:text="11:30 - 12:00"
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toBottomOf="@+id/tvProgramName" />
+
+    <TextView
+        android:id="@+id/tvProgramDescription"
+        android:layout_width="0dp"
+        android:layout_height="306dp"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toBottomOf="@+id/tvProgramDateTime" />
+
+    <com.example.radioaktywne.RATextViewHorizontal
+        android:id="@+id/tvHostsText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/hosts"
+        android:textColor="@color/RABlueColor"
+        android:fontFamily="@font/montserrat"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toBottomOf="@+id/tvProgramDescription" />
+
+    <TextView
+        android:id="@+id/tvProgramHosts"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Grabek \nMartyna Matwiejuk \n Konrad Maciąg"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/glBottom"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toBottomOf="@+id/tvHostsText" />
+
+
+</android.support.constraint.ConstraintLayout>

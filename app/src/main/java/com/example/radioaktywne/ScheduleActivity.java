@@ -28,6 +28,8 @@ import java.util.HashMap;
 
 import static com.example.radioaktywne.ProgramActivity.programDescription;
 import static com.example.radioaktywne.ProgramActivity.programName;
+import static com.example.radioaktywne.ProgramActivity.programDatetime;
+import static com.example.radioaktywne.ProgramActivity.programHost;
 import static com.example.radioaktywne.ScheduleDownloadService.EXTRA_OUT_TXT;
 
 public class ScheduleActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
@@ -63,6 +65,8 @@ public class ScheduleActivity extends AppCompatActivity implements GestureDetect
                     Intent intent = new Intent(getBaseContext(), ProgramActivity.class);
                     intent.putExtra(programName, program.getName());
                     intent.putExtra(programDescription, program.getDescription() );
+                    intent.putExtra(programDatetime, program.getDateTime());
+                    intent.putExtra(programHost, program.getHost());
                     startActivity(intent);
                 }
             }
