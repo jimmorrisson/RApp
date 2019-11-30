@@ -1,29 +1,21 @@
 package com.example.radioaktywne;
 
-import android.Manifest;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.pm.PackageManager;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.ResultReceiver;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.exoplayer2.util.Util;
 
@@ -55,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     private ListView scheduleListView;
     private ScheduleIntentServiceReceiver intentReceiver;
     private ImageButton btnPlay;
-    private ImageButton btnPause;
     private Button btnSchedule;
 
     @Override
@@ -75,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         rdsTextView = (TextView)findViewById(R.id.textView);
         scheduleListView = (ListView)findViewById(R.id.scheduleListView);
         btnPlay = (ImageButton)findViewById(R.id.btnPlay);
-//        btnPause = (ImageButton)findViewById(R.id.btnPause);
         btnSchedule = (Button) findViewById(R.id.button);
 
         startService(new Intent(this, ScheduleDownloadService.class).putExtra(Intent.EXTRA_RESULT_RECEIVER, intentReceiver));
@@ -142,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
 //                            int rdsTxtHeight = rdsTextView.getMeasuredHeight();
 //                            rdsTextView.getLayoutParams().height = rdsTxtHeight;
                         }
+                        updateBtnPlay();
                     }
                 });
             }
@@ -198,21 +189,27 @@ public class MainActivity extends AppCompatActivity {
     public void playClicked(View view) {
         if (mBound) {
             mService.play();
+            updateBtnPlay();
         }
     }
 
-    public void pauseClicked(View view) {
-        if (mBound) {
-            mService.pausePlayer();
+    private void updateBtnPlay() {
+        if (!mBound) {
+            btnPlay.setImageResource(R.drawable.exo_controls_pause);
+            return;
+        }
+        if (btnPlay != null) {
+            if (mService.getPlayWhenReady()) {
+                btnPlay.setImageResource(R.drawable.exo_controls_pause); //@android:drawable/ic_media_play
+            } else {
+                btnPlay.setImageResource(R.drawable.exo_controls_play);
+            }
         }
     }
 
     private void setGUIInteraction(boolean enable) {
         if (btnPlay != null) {
             btnPlay.setClickable(enable);
-        }
-        if (btnPause != null) {
-            btnPause.setClickable(enable);
         }
         if (btnSchedule != null) {
             btnSchedule.setClickable(enable);

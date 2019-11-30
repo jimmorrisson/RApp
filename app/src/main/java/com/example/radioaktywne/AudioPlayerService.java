@@ -98,6 +98,12 @@ public class AudioPlayerService extends Service {
         }
     }
 
+    public boolean getPlayWhenReady() {
+        if (player == null) {
+            return false;
+        }
+        return player.getPlayWhenReady();
+    }
 
     @Override
     public void onCreate() {
