@@ -9,19 +9,14 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.ResultReceiver;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.LogPrinter;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +35,7 @@ public class ScheduleActivity extends AppCompatActivity implements GestureDetect
     private boolean mBound = false;
     private int day = 0;
     private ArrayList<Program> arrayList;
-    private ProgramListAdapter mAdapter;
+    private ProgramListAdapterUpdated mAdapter;
     private ListView listView;
     private TextView dayTextView;
     private ScheduleIntentServiceReceiver intentReceiver;
@@ -54,7 +49,7 @@ public class ScheduleActivity extends AppCompatActivity implements GestureDetect
 
         arrayList = new ArrayList<>();
 
-        mAdapter = new ProgramListAdapter(this, R.layout.adapter_view_layout, arrayList);
+        mAdapter = new ProgramListAdapterUpdated(this, R.layout.adapter_view_layout_updated, arrayList);
         listView.setAdapter(mAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -183,7 +178,7 @@ public class ScheduleActivity extends AppCompatActivity implements GestureDetect
                 return;
             }
             if (mAdapter == null) {
-                mAdapter = new ProgramListAdapter(this, R.layout.adapter_view_layout, scheduleMap.get("1"));
+                mAdapter = new ProgramListAdapterUpdated(this, R.layout.adapter_view_layout_updated, scheduleMap.get("1"));
                 listView.setAdapter(mAdapter);
             } else {
                 if (scheduleMap.containsKey(Integer.toString(day))) {

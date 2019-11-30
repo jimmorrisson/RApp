@@ -37,8 +37,12 @@ public class ProgramListAdapterUpdated extends ArrayAdapter<Program> {
         TextView textViewProgramName = (TextView) convertView.findViewById(R.id.tvProgramName);
         TextView textViewProgramDateTime = (TextView) convertView.findViewById(R.id.tvProgramDateTime);
 
-        textViewProgramDateTime.setText(dateTime);
-        textViewProgramName.setText(name);
+        if (textViewProgramDateTime != null) {
+            textViewProgramDateTime.setText(dateTime);
+        }
+        if (textViewProgramName != null) {
+            textViewProgramName.setText(name);
+        }
 
         return  convertView;
     }
