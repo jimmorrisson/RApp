@@ -74,7 +74,8 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@android:drawable/ic_media_play" />
+        app:srcCompat="@drawable/ic_play"
+        android:background="@color/RAGrayColor"/>
 
     <ListView
         android:id="@+id/scheduleListView"

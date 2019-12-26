@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="16.25"
             android:onClick="btnLeftClicked"
-            android:rotation="-180"
-            android:src="@drawable/arrow_right" />
+            app:srcCompat="@drawable/ic_left_arrow"
+            android:background="@color/RAGrayColor"/>
 
         <TextView
             android:id="@+id/textViewDay"
@@ -42,7 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="16.25"
             android:onClick="btnRightClicked"
-            android:src="@drawable/arrow_right" />
+            app:srcCompat="@drawable/ic_right_arrow"
+            android:background="@color/RAGrayColor"/>
     </LinearLayout>
 
 

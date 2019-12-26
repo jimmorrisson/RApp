@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 
 public class RATextViewHorizontal extends AppCompatTextView {
     private Paint paint = new Paint();
+    private int drawOffset = 5;
 
     public RATextViewHorizontal(Context context) {
         super(context);
@@ -43,7 +44,9 @@ public class RATextViewHorizontal extends AppCompatTextView {
         int height = this.getMeasuredHeight();
         int width = this.getMeasuredWidth();
         float halfHeight = height / 2.f;
-        canvas.drawLine(0, halfHeight, 10, halfHeight, paint);
-        canvas.drawLine(width - 10, halfHeight, width, halfHeight, paint);
+        int paddingLeft = this.getPaddingLeft() - drawOffset;
+        int paddingRight = this.getPaddingRight() - drawOffset;
+        canvas.drawLine(0, halfHeight, paddingLeft, halfHeight, paint);
+        canvas.drawLine(width - paddingRight, halfHeight, width, halfHeight, paint);
     }
 }

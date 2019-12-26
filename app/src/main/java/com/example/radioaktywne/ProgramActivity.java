@@ -3,6 +3,7 @@ package com.example.radioaktywne;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class ProgramActivity extends AppCompatActivity {
@@ -48,5 +49,9 @@ public class ProgramActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
         super.onActivityResult(requestCode, resultCode, dataIntent);
+    }
+
+    public void backClicked(View view) {
+        finish();
     }
 }

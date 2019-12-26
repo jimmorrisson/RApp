@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -30,6 +31,10 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.example.radioaktywne.ProgramActivity.programDatetime;
+import static com.example.radioaktywne.ProgramActivity.programDescription;
+import static com.example.radioaktywne.ProgramActivity.programHost;
+import static com.example.radioaktywne.ProgramActivity.programName;
 import static com.example.radioaktywne.ScheduleDownloadService.EXTRA_OUT_TXT;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private ScheduleIntentServiceReceiver intentReceiver;
     private ImageButton btnPlay;
     private Button btnSchedule;
+    private Object AdapterView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,14 +201,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateBtnPlay() {
         if (!mBound) {
-            btnPlay.setImageResource(R.drawable.exo_controls_pause);
+            btnPlay.setImageResource(R.drawable.ic_pause);
             return;
         }
         if (btnPlay != null) {
             if (mService.getPlayWhenReady()) {
-                btnPlay.setImageResource(R.drawable.exo_controls_pause); //@android:drawable/ic_media_play
+                btnPlay.setImageResource(R.drawable.ic_pause); //@android:drawable/ic_media_play
             } else {
-                btnPlay.setImageResource(R.drawable.exo_controls_play);
+                btnPlay.setImageResource(R.drawable.ic_play);
             }
         }
     }
@@ -227,8 +233,23 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Program> arrayList = scheduleMap.get(DayToStringMapper.map(day));
         ProgramListAdapterUpdated adapter = new ProgramListAdapterUpdated(this, R.layout.adapter_view_layout_updated, arrayList);
-        if (scheduleListView != null)
+        if (scheduleListView != null) {
             scheduleListView.setAdapter(adapter);
+            scheduleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Program program = (Program) parent.getItemAtPosition(position);
+                    if (program != null) {
+                        Intent intent = new Intent(getBaseContext(), ProgramActivity.class);
+                        intent.putExtra(programName, program.getName());
+                        intent.putExtra(programDescription, program.getDescription() );
+                        intent.putExtra(programDatetime, program.getDateTime());
+                        intent.putExtra(programHost, program.getHost());
+                        startActivity(intent);
+                    }
+                }
+            });
+        }
     }
 
     class ScheduleIntentServiceReceiver extends ResultReceiver {
