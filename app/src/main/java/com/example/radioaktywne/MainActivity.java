@@ -8,13 +8,15 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.ResultReceiver;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -49,10 +51,12 @@ public class MainActivity extends AppCompatActivity {
 
     //UI
     private TextView rdsTextView;
+    private TextView tv3;
     private ListView scheduleListView;
     private ScheduleIntentServiceReceiver intentReceiver;
     private ImageButton btnPlay;
     private Button btnSchedule;
+    private ImageView logo;
     private Object AdapterView;
 
     @Override
@@ -73,12 +77,21 @@ public class MainActivity extends AppCompatActivity {
         scheduleListView = (ListView)findViewById(R.id.scheduleListView);
         btnPlay = (ImageButton)findViewById(R.id.btnPlay);
         btnSchedule = (Button) findViewById(R.id.button);
+        logo = (ImageView) findViewById(R.id.logoImageView);
+        tv3 = (TextView) findViewById(R.id.textView3);
 
         startService(new Intent(this, ScheduleDownloadService.class).putExtra(Intent.EXTRA_RESULT_RECEIVER, intentReceiver));
 
         Intent intent = new Intent(this, AudioPlayerService.class);
         Util.startForegroundService(this, intent);
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        if (height < 1600) {
+            logo.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -201,14 +214,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateBtnPlay() {
         if (!mBound) {
-            btnPlay.setImageResource(R.drawable.ic_pause);
+            btnPlay.setImageResource(R.drawable.ic_pause_medium);
             return;
         }
         if (btnPlay != null) {
             if (mService.getPlayWhenReady()) {
-                btnPlay.setImageResource(R.drawable.ic_pause); //@android:drawable/ic_media_play
+                btnPlay.setImageResource(R.drawable.ic_pause_medium); //@android:drawable/ic_media_play
             } else {
-                btnPlay.setImageResource(R.drawable.ic_play);
+                btnPlay.setImageResource(R.drawable.ic_play_medium);
             }
         }
     }

@@ -12,22 +12,25 @@ import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.audio.AudioAttributes;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.PlayerNotificationManager;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -49,6 +52,7 @@ public class AudioPlayerService extends Service {
     private boolean playerStarted = false;
     private String RDS = "Trwa łączenie";
     private String contentText = "Promieniujemy najlepszą muzyką";
+    AudioAttributes audioAttributes;
 
     private final IBinder binder = new LocalBinder();
     private MusicIntentReceiver musicIntentReceiver;
@@ -110,16 +114,24 @@ public class AudioPlayerService extends Service {
         super.onCreate();
         final Context context = this;
 
-        player = ExoPlayerFactory.newSimpleInstance(context, new DefaultTrackSelector());
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            audioAttributes = new AudioAttributes.Builder()
+                    .setUsage(C.USAGE_MEDIA)
+                    .setContentType(C.CONTENT_TYPE_MOVIE)
+                    .build();
+        }
+//        player = ExoPlayerFactory.newSimpleInstance(context, new DefaultTrackSelector());
+        player = new SimpleExoPlayer.Builder(context).build();
         DefaultDataSourceFactory dataSourceFactory = new DefaultDataSourceFactory(
                 context, Util.getUserAgent(context, "Audio"));
-        MediaSource mediaSource = new ExtractorMediaSource.Factory(dataSourceFactory)
+        MediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
                 .createMediaSource(playerUri);
         player.prepare(mediaSource);
         player.setPlayWhenReady(false);
+        player.setAudioAttributes(audioAttributes, true);
 
         playerNotificationManager = PlayerNotificationManager.createWithNotificationChannel(
-                context, PLAYBACK_CHANNEL_ID, R.string.playback_channel_name, PLAYBACK_NOTIFICATION_ID,
+                context, PLAYBACK_CHANNEL_ID, R.string.playback_channel_name, 0, PLAYBACK_NOTIFICATION_ID,
                 new PlayerNotificationManager.MediaDescriptionAdapter() {
                     @Override
                     public String getCurrentContentTitle(Player player) {
@@ -143,24 +155,24 @@ public class AudioPlayerService extends Service {
                     @Nullable
                     @Override
                     public Bitmap getCurrentLargeIcon(Player player, PlayerNotificationManager.BitmapCallback callback) {
-                        Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.raicon);
-                        return icon;
-                    }});
+                        return BitmapFactory.decodeResource(context.getResources(), R.drawable.raicon);
+                    }
+                }, new PlayerNotificationManager.NotificationListener() {
+                    @Override
+                    public void onNotificationCancelled(int notificationId, boolean dismissedByUser) {
+                        stopSelf();
+                    }
 
-        playerNotificationManager.setNotificationListener(new PlayerNotificationManager.NotificationListener() {
-            @Override
-            public void onNotificationStarted(int notificationId, Notification notification) {
-                startForeground(notificationId, notification);
-            }
+                    @Override
+                    public void onNotificationPosted(int notificationId, Notification notification, boolean ongoing) {
+                        startForeground(notificationId, notification);
+                    }
+                });
 
-            @Override
-            public void onNotificationCancelled(int notificationId) {
-                stopSelf();
-            }
-        });
         playerNotificationManager.setPlayer(player);
         playerNotificationManager.setUseNavigationActions(false);
         playerNotificationManager.setUseChronometer(false);
+        playerNotificationManager.setUseStopAction(true);
 
         playerStarted = true;
         new Thread(new Runnable() {

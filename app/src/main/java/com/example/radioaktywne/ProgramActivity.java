@@ -1,8 +1,9 @@
 package com.example.radioaktywne;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
@@ -39,6 +40,7 @@ public class ProgramActivity extends AppCompatActivity {
 
         if (description != null && tvProgramDescription != null) {
             tvProgramDescription.setText(description);
+            tvProgramDescription.setMovementMethod(new ScrollingMovementMethod());
         }
 
         if (host != null && tvProgramHost != null) {
