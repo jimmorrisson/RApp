@@ -86,12 +86,12 @@ public class MainActivity extends AppCompatActivity {
         Util.startForegroundService(this, intent);
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        if (height < 1600) {
-            logo.setVisibility(View.GONE);
-        }
+//        DisplayMetrics displayMetrics = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//        int height = displayMetrics.heightPixels;
+//        if (height < 1600) {
+//            logo.setVisibility(View.GONE);
+//        }
     }
 
     @Override

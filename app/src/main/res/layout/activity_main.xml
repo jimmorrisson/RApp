@@ -9,30 +9,30 @@
 
     <ImageView
         android:id="@+id/logoImageView"
-        android:layout_width="335dp"
-        android:layout_height="97dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/ralogo"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/guideline"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
-        app:layout_constraintHorizontal_bias="0.435"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toTopOf="@+id/glTop" />
+        app:layout_constraintTop_toTopOf="@+id/glTop"
+        app:srcCompat="@drawable/ic_ra_logof_big" />
 
     <com.example.radioaktywne.RATextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat"
         android:paddingLeft="5pt"
         android:paddingRight="5pt"
         android:paddingBottom="5pt"
         android:text="@string/now_playing"
+        android:textAlignment="center"
         android:textColor="@color/white"
-        android:fontFamily="@font/montserrat"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toBottomOf="@+id/logoImageView" />
+        app:layout_constraintTop_toTopOf="@+id/guideline7" />
 
     <TextView
         android:id="@+id/textView"
@@ -40,28 +40,29 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/montserrat"
+        android:gravity="center"
         android:text="@string/rds"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/btnPlay"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/glCenterRight"
         app:layout_constraintStart_toStartOf="@+id/glCenterLeft"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/guideline2" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_bg"
+        android:fontFamily="@font/montserrat"
         android:onClick="btnClicked"
         android:paddingLeft="5pt"
         android:paddingRight="5pt"
         android:text="@string/radio_schedule"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:fontFamily="@font/montserrat"
+        app:layout_constraintTop_toBottomOf="@id/guideline6"
         app:layout_constraintBottom_toTopOf="@+id/glBottom"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft" />
@@ -70,40 +71,42 @@
     <ImageButton
         android:id="@+id/btnPlay"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_height="0dp"
         android:background="@color/RAGrayColor"
         android:onClick="playClicked"
-        app:layout_constraintBottom_toTopOf="@+id/tvNext"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintTop_toBottomOf="@id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
         app:srcCompat="@drawable/ic_play_medium" />
 
     <ListView
         android:id="@+id/scheduleListView"
-        android:layout_width="354dp"
-        android:layout_height="266dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/RAGrayColor"
         android:divider="@drawable/listview_divider"
-        android:dividerHeight="4px"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        android:dividerHeight="4dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
-        app:layout_constraintStart_toStartOf="@+id/glLeft" />
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toBottomOf="@+id/guideline5" />
 
     <com.example.radioaktywne.RATextView
         android:id="@+id/tvNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/montserrat"
         android:paddingBottom="5dp"
         android:text="@string/next"
         android:textColor="@color/white"
-        android:fontFamily="@font/montserrat"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/scheduleListView"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
-        app:layout_constraintStart_toStartOf="@+id/glLeft" />
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toBottomOf="@+id/guideline4"
+        app:layout_constraintBottom_toTopOf="@id/guideline5"
+        tools:layout_editor_absoluteY="527dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glTop"
@@ -147,5 +150,53 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.85" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.12" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.18" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.90" />
 </androidx.constraintlayout.widget.ConstraintLayout>

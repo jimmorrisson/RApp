@@ -130,7 +130,7 @@ public class AudioPlayerService extends Service {
         player.setPlayWhenReady(false);
         player.setAudioAttributes(audioAttributes, true);
 
-        playerNotificationManager = PlayerNotificationManager.createWithNotificationChannel(
+        playerNotificationManager = RAPlayerNotificationManager.createWithNotificationChannel(
                 context, PLAYBACK_CHANNEL_ID, R.string.playback_channel_name, 0, PLAYBACK_NOTIFICATION_ID,
                 new PlayerNotificationManager.MediaDescriptionAdapter() {
                     @Override
@@ -173,6 +173,7 @@ public class AudioPlayerService extends Service {
         playerNotificationManager.setUseNavigationActions(false);
         playerNotificationManager.setUseChronometer(false);
         playerNotificationManager.setUseStopAction(true);
+//        playerNotificationManager.BitmapCallback();
 
         playerStarted = true;
         new Thread(new Runnable() {
